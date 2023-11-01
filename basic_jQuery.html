@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            width: 500px;
+            height: 200px;
+            background-color: gray;
+            /* margin-top: 50px; */
+        }
+    </style>
+</head>
+<body>
+    <button id="showBtn">Show</button>
+    <button id="hideBtn">Hide</button>
+    <button id="toggleBtn">Toggle</button>
+
+    <br><br>
+
+    <div class="box">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam minus aut error nesciunt minima, qui soluta eius? Quidem, autem nulla at numquam non facilis soluta aut in natus nihil recusandae dolore animi quas eos esse eius maiores exercitationem? Dolorem molestias ratione eos iusto pariatur fugiat consectetur at voluptates, impedit consequuntur veritatis quaerat blanditiis cupiditate culpa, porro ullam quae, vitae commodi. Aliquid enim, explicabo adipisci tempore nam ullam, eos optio similique ea a provident fugit neque. Commodi impedit velit vel quas, nam fugit! Maxime, unde quam nisi aperiam, voluptate temporibus culpa, natus accusamus dicta eaque quos nihil. Quod possimus ex porro.
+    </div>
+
+    <br><br>
+    <input type="text" id="fName" name="name" placeholder="enter value">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#showBtn").click(function() {
+                // $(".box").show()
+                // $(".box").fadeIn()
+                $(".box").slideDown()
+            })
+
+            $("#hideBtn").click(function() {
+                // $(".box").hide()
+                // $(".box").fadeOut()
+                $(".box").slideUp()
+            })
+
+            $("#toggleBtn").click(function() {
+                // $(".box").toggle()
+                // $(".box").fadeToggle()
+                $(".box").slideToggle()
+            })
+
+            // $(".box").mouseenter(function() {
+            //     $(".box").css({
+            //         "background-color": 'red',
+            //         "color": 'white'
+            //     })
+            // })
+
+            // $(".box").mouseleave(function() {
+            //     $(".box").css({
+            //         "background-color": 'gray',
+            //         "color": 'black'
+            //     })
+            // })
+
+            $("#showBtn").mouseup(function() {
+                $("#showBtn").css({
+                    "background-color": 'red',
+                    "color": 'white'
+                })
+            })
+
+            $("#showBtn").mousedown(function() {
+                $("#showBtn").css({
+                    "background-color": 'white',
+                    "color": 'black'
+                })
+            })
+
+            // $("#fName").keyup(function() {
+            //     let v = $("#fName").val()
+            //     console.log(v);
+            // })
+
+            
+            $("#fName").keydown(function() {
+                let v = $("#fName").val()
+                console.log(v);
+            })
+        })
+    </script>
+
+</body>
+</html>
