@@ -1,71 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 90%;
+        }
+    </style>
 </head>
+
 <body>
 
-    <form action="" id="submit">
-        <input type="text" name="name" placeholder="enter your name" id="name">
-        <span id="nameErr"></span> <br><br>
-        <input type="text" name="age" placeholder="enter your age" id="age">
-        <span id="ageErr"></span> <br><br>
-        <input type="text" name="password" placeholder="enter your password" id="password">
-        <span id="passErr"></span> <br><br>
-        <input type="submit">
+    <form name="contactForm" id="contactForm" action="/examples/actions/confirmation.php" method="post">
+        <h2>Application Form</h2>
+        <div class="row">
+            <p>Full Name</p>
+            <input type="text" name="name">
+            <span class="error" id="nameErr"></span>
+        </div>
+        <div class="row">
+            <p>Email Address</p>
+            <input type="text" name="email">
+            <span class="error" id="emailErr"></span>
+        </div>
+        <div class="row">
+            <p>Mobile Number</p>
+            <input type="text" name="mobile" maxlength="10">
+            <span class="error" id="mobileErr"></span>
+        </div>
+        <div class="row">
+            <p>Country</p>
+            <select name="country">
+                <option value="0">Select</option>
+                <option value="au">Australia</option>
+                <option value="in">India</option>
+                <option value="us">United States</option>
+                <option value="uk">United Kingdom</option>
+            </select>
+            <span class="error" id="countryErr"></span>
+        </div>
+        <div class="row">
+            <p>Gender</p>
+            <span class="error" id="genderErr"></span>
+            <div class="form-inline">
+                <p><input type="radio" name="gender" value="male"> Male</p>
+                <p><input type="radio" name="gender" value="female"> Female</p>
+            </div>
+
+        </div>
+        <div class="row">
+            <p>Hobbies <i>(Optional)</i></p>
+            <span class="error" id="hobbyErr"></span>
+            <div class="form-inline">
+                <p><input type="checkbox" name="hobbies" value="sports"> Sports</p>
+                <p><input type="checkbox" name="hobbies" value="movies"> Movies</p>
+                <p><input type="checkbox" name="hobbies" value="music"> Music</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <input type="submit" value="Submit">
+        </div>
     </form>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <script>
-        $(document).ready(function() {
-            $("#submit").submit(function() {
-                var name = $("#name").val()
-                var age = $("#age").val()
-                var password = $("#password").val()
-                console.log(name,age,password);
+        $(document).ready(function () {
+            $("#contactForm").submit(function () {
+                event.preventDefault();
+                let name = $("input[name='name']").val()
+                let email = $("input[name='email']").val()
+                let mobile = $("input[name='mobile']").val()
+                let country = $("select[name='country']").val()
+                let gender = $("input[name='gender']:checked").val()
+                let hobbies = $("input[name='hobbies']:checked").length
+             
+                console.log(hobbies);
+                // console.log("submit");
 
-                var nameReg = /^[a-zA-Z ]{2,30}$/;
-
-                if (name == '') {
-                    $("nameErr").html("Please Enter Name")
+                if (name === '') {
+                    $("#nameErr").html("Please Enter Name");
                 } else {
-                    if(nameReg.test(name)) {
+                    let nameReg = /^[a-zA-Z ]{2,30}$/;
+
+                    if (nameReg.test(name)) {
                         $("#nameErr").html("");
                     } else {
                         $("#nameErr").html("Please Enter Valid Name");
                     }
                 }
 
-                var ageReg=/^\S[0-9]{0,3}$/;
-                
-                if (age == '') {
-                    $("ageErr").html("Please Enter Age")
+                if (email === '') {
+                    $("#emailErr").html("Please Enter Email");
                 } else {
-                    if(ageReg.test(age)) {
-                        $("#ageErr").html("Please Enter Valid Age");
+                    let emailReg = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+                    if (emailReg.test(email)) {
+                        $("#emailErr").html("");
                     } else {
-                        $("#ageErr").html("");
+                        $("#emailErr").html("Please Enter Valid Email");
                     }
                 }
 
-                var passReg = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/
-
-                if (password == '') {
-                    $("passErr").html("Please Enter password")
+                if (mobile === '') {
+                    $("#mobileErr").html("Please Enter Mobile Number");
                 } else {
-                    if(password.length < 8) {
-                        $("#ageErr").html("Please Enter Atleast 8 Character");
+                    let mobileReg = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/;
+
+                    if (mobileReg.test(mobile)) {
+                        $("#mobileErr").html("");
                     } else {
-                        $("#ageErr").html("");
+                        $("#mobileErr").html("Please Enter Valid Mobile Number");
                     }
                 }
 
+                if (country === '0') {
+                    $("#countryErr").html("Please Select Country");
+                } else {
+                    $("#countryErr").html("");
+                }
+
+                if (gender === undefined) {
+                    $("#genderErr").html("Please Select Your Gender");
+                } else {
+                    $("#genderErr").html("");
+                }
+
+                if (hobbies < 2) {
+                    $("#hobbyErr").html("Please Select Atleast 2 hobby");
+                } else {
+                    $("#hobbyErr").html("");
+                    let a = [];
+                    $("input[name='hobbies']:checked").each(function() {
+                        a.push($(hobbies))
+                    })
+                }
+                console.log(a);
             })
         })
     </script>
 </body>
+
 </html>
