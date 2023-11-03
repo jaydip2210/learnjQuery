@@ -138,10 +138,10 @@
                     $("#hobbyErr").html("");
                     let a = [];
                     $("input[name='hobbies']:checked").each(function() {
-                        a.push($(hobbies))
+                        a.push($(this).val())
+                        console.log(a);
                     })
                 }
-                console.log(a);
             })
         })
     </script>
